@@ -8,7 +8,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-
 public class GestorClientes {
     public static void main(String[] args) {
         Path base = Path.of("src","main","java","es","cifpcarlos3","actividad1_9");

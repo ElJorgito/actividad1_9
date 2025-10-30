@@ -1,4 +1,10 @@
 package es.cifpcarlos3.actividad1_9.vo;
 
-public class Cliente {
+
+import java.util.List;
+
+public  class Cliente {
+    long id;
+    String nombre;
+    List<Sucursal> sucursales;
 }

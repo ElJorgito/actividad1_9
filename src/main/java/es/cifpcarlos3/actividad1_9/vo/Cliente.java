@@ -9,6 +9,7 @@ import java.util.List;
 public  class Cliente {
     @JacksonXmlProperty(isAttribute = true)
     private long id;
+
     private String nombre;
 
     @JacksonXmlElementWrapper(useWrapping = false)

@@ -16,19 +16,18 @@ public class GestorClientes {
         Path base = Path.of("src","main","java","es","cifpcarlos3","actividad1_9");
         Path XML = base.resolve("clientes.xml");
 
-        var xmlMapper = XmlMapper.builder().enable(DeserializationFeature.UNWRAP_ROOT_VALUE).build();
+        var xmlMapper = new XmlMapper();
         try (var br = Files.newBufferedReader(XML, StandardCharsets.UTF_8)) {
             ListaClientes datos = xmlMapper.readValue(br, ListaClientes.class);
             validarClientes(datos);
             mostrarClientes(datos);
-
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
     public static void validarClientes(ListaClientes datos){
-        for (Cliente cliente : datos.clientes) {
-            if (cliente.getId() == 0 || cliente.getNombre() == null) {
+        for (Cliente cliente : datos.getClientes()) {
+            if (cliente.getNombre() == null) {
                 System.out.println("Cliente no valido");
                 System.exit(0);
             }
@@ -38,8 +37,7 @@ public class GestorClientes {
                 System.exit(0);
             }
             for (Sucursal sucurse : sucursales) {
-                if (sucurse.getCalle() == null || sucurse.getCp() == null ||
-                    sucurse.getCiudad() == null || sucurse.getProvincia() == null) {
+                if (sucurse.getCalle() == null || sucurse.getCiudad() == null ) {
                     System.err.println("Cliente no valido.");
                     System.exit(0);
                 }
@@ -48,6 +46,13 @@ public class GestorClientes {
     }
 
     public static void mostrarClientes(ListaClientes datos){
-
+        for (Cliente cliente : datos.getClientes()) {
+            System.out.println("Cliente: " + cliente.getNombre() + "(id:" + cliente.getId() + ")");
+            System.out.println("Sucursales: (" + datos.getClientes().size() + ")");
+            for (Sucursal sucursal : cliente.getSucursal()) {
+                System.out.println("· " + sucursal.getCalle() + ", " + sucursal.getCiudad()
+                + " [" + sucursal.getProvincia() + "] - CP " + sucursal.getCp());
+            }
+        }
     }
 }
